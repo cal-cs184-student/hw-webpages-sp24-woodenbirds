@@ -2,6 +2,78 @@
 	<head>
 	</head>
 	<body>
-		Homework 1 index.html here
+		<!-- title -->
+		<h1>Task 1</h1>
+			<!--bullet point-->
+			<ul>
+				<li><h3>How to Rasterize Triangles</h3></li>
+					<ol>
+						<li>Find the minimum x,y and maximum x,y coordinates of the triangle, so that we have the bounding box of the triangle.</li>
+						<li>Iterate every pixel in the bounding box, determine whether it's in the triangle by having the three line tests.</li>
+						<li>If the pixel is in the triangle, fill the pixel with given color.</li>
+					</ol>
+
+				<li><h3>Why the algorithm is no worse than one that checks each sample within the bounding box of the triangle</h3></li>
+					<ol>
+						<li>Because our implementation only checks the pixels in the bounding box of the triangle.</li>
+					</ol>
+
+				<li><h3>Basic/test4.svg</h3></li>
+					<img src="./images/basic_test4.png" alt="basic_test4">
+				
+				<li></li>
+
+
+
+			</ul>
+
+		<h1>Task 6</h1>
+			<ul>
+				<li><h3>Level Sampling</h3></li>
+					<ol>
+						<li>
+							Level sampling is to pre-generate the mipmap of different levels of the texture. And when we are sampling the texture, we can choose the level of the texture to sample from base on the distance between the texture and the camera.
+						</li>
+						<li>
+							We implemented the get_level function according to the formula in the lecture slides.
+							<img src="./images/formula.png" alt="level_sampling_formula" width="400">
+						</li>
+					</ol>
+				<li><h3>Tradeoffs between Speed, Memory Usage, and Antialiasing Power</h3></li>
+					<ol>
+						<li>pixel sampling:</li>
+							<ul>
+								<li>Speed: Fastest</li>
+								<li>Memory Usage: Low</li>
+								<li>Antialiasing Power: Low</li>
+							</ul>
+						<li>level sampling:</li>
+							<ul>
+								<li>Speed: Medium</li>
+								<li>Memory Usage: Medium</li>
+								<li>Antialiasing Power: Medium</li>
+							</ul>
+						<li>number of samples per pixel:</li>
+							<ul>
+								<li>Speed: Slowest</li>
+								<li>Memory Usage: High</li>
+								<li>Antialiasing Power: High</li>
+							</ul>
+					</ol>
+				<li><h3>Four Versions of the Image</h3></li>
+					<ol>
+						<li>L_ZERO and P_NEAREST</li>
+							<img src="./images/L-zero_P-nearest.png" alt="level_zero_nearest">
+						<li>L_ZERO and P_LINEAR</li>
+							<img src="./images/L-zero_P-linear.png" alt="level_zero_linear">
+						<li>L_NEAREST and P_NEAREST</li>
+							<img src="./images/L-nearest_P-nearest.png" alt="level_nearest_nearest">
+						<li>L_NEAREST and P_LINEAR</li>
+							<img src="./images/L-nearest_P-linear.png" alt="level_nearest_linear">
+					</ol>
+			</ul>
+			
+			
+
 	</body>
 </html>
