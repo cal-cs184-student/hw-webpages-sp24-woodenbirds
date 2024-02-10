@@ -1,79 +1,248 @@
-<html>
-	<head>
-	</head>
-	<body>
-		<!-- title -->
-		<h1>Task 1</h1>
-			<!--bullet point-->
-			<ul>
-				<li><h3>How to Rasterize Triangles</h3></li>
-					<ol>
-						<li>Find the minimum x,y and maximum x,y coordinates of the triangle, so that we have the bounding box of the triangle.</li>
-						<li>Iterate every pixel in the bounding box, determine whether it's in the triangle by having the three line tests.</li>
-						<li>If the pixel is in the triangle, fill the pixel with given color.</li>
-					</ol>
-
-				<li><h3>Why the algorithm is no worse than one that checks each sample within the bounding box of the triangle</h3></li>
-					<ol>
-						<li>Because our implementation only checks the pixels in the bounding box of the triangle.</li>
-					</ol>
-
-				<li><h3>Basic/test4.svg</h3></li>
-					<img src="./images/basic_test4.png" alt="basic_test4">
-				
-				<li></li>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+  body {
+    padding: 100px;
+    width: 1000px;
+    margin: auto;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: #121212;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+</style>
+<title>CS 184/284A Rasterizer</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
 
 
+<body>
 
-			</ul>
+<h1 align="middle">CS 184/284A: Computer Graphics and Imaging, Spring 2024</h1>
+<h1 align="middle">Homework 1: Rasterizer</h1>
+<h2 align="middle">Franklin Zhang, Yunqi Li</h2>
 
-		<h1>Task 6</h1>
-			<ul>
-				<li><h3>Level Sampling</h3></li>
-					<ol>
-						<li>
-							Level sampling is to pre-generate the mipmap of different levels of the texture. And when we are sampling the texture, we can choose the level of the texture to sample from base on the distance between the texture and the camera.
-						</li>
-						<li>
-							We implemented the get_level function according to the formula in the lecture slides.
-							<img src="./images/formula.png" alt="level_sampling_formula" width="400">
-						</li>
-					</ol>
-				<li><h3>Tradeoffs between Speed, Memory Usage, and Antialiasing Power</h3></li>
-					<ol>
-						<li>pixel sampling:</li>
-							<ul>
-								<li>Speed: Fastest</li>
-								<li>Memory Usage: Low</li>
-								<li>Antialiasing Power: Low</li>
-							</ul>
-						<li>level sampling:</li>
-							<ul>
-								<li>Speed: Medium</li>
-								<li>Memory Usage: Medium</li>
-								<li>Antialiasing Power: Medium</li>
-							</ul>
-						<li>number of samples per pixel:</li>
-							<ul>
-								<li>Speed: Slowest</li>
-								<li>Memory Usage: High</li>
-								<li>Antialiasing Power: High</li>
-							</ul>
-					</ol>
-				<li><h3>Four Versions of the Image</h3></li>
-					<ol>
-						<li>L_ZERO and P_NEAREST</li>
-							<img src="./images/L-zero_P-nearest.png" alt="level_zero_nearest">
-						<li>L_ZERO and P_LINEAR</li>
-							<img src="./images/L-zero_P-linear.png" alt="level_zero_linear">
-						<li>L_NEAREST and P_NEAREST</li>
-							<img src="./images/L-nearest_P-nearest.png" alt="level_nearest_nearest">
-						<li>L_NEAREST and P_LINEAR</li>
-							<img src="./images/L-nearest_P-linear.png" alt="level_nearest_linear">
-					</ol>
-			</ul>
+
+<body>
+	<!-- title -->
+	<h1 align="middle">Task 1: Rasterizing single-color triangles</h1>
+		<!--bullet point-->
+		<ul>
+			<li><h3>How to Rasterize Triangles</h3></li>
+				<ol>
+					<li>Find the minimum x,y and maximum x,y coordinates of the triangle, so that we have the bounding box of the triangle.</li>
+					<li>Iterate every pixel in the bounding box, determine whether it's in the triangle by having the three line tests.</li>
+					<li>If the pixel is in the triangle, fill the pixel with given color.</li>
+				</ol>
+
+			<li><h3>Why the algorithm is no worse than one that checks each sample within the bounding box of the triangle</h3></li>
+				<ol>
+					<li>Because our implementation only checks the pixels in the bounding box of the triangle.</li>
+				</ol>
+
+			<li><h3>Basic/test4.svg</h3></li>
+				<img src="./images/basic_test4.png" alt="basic_test4">
 			
-			
+			<li></li>
 
-	</body>
-</html>
+
+
+		</ul>
+
+	<h1 align="middle">Task2: Supersampling</h1>
+		<ul>
+			<li><h3>Supersampling Process</h3></li>
+				<ol>
+					<li>
+						Create a sample buffer whose height and width are both sqrt(sample_rate) times of the frame buffer.
+					</li>
+					<li>
+						Sample in the sample buffer like in task 1
+					</li>
+					<li>
+						Average the color of the samples in the sample buffer to get the color of the pixel in the frame buffer.
+					</li>
+				</ol>
+			<li><h3>Why Supersampling is Useful</h3></li>
+				Supersampling is useful because it can remove frequency above the Nyquist frequency, which is the highest frequency that can be represented in the image.</li>
+
+			<li><h3>Comparison of Sample Rates</h3></li>
+			<!-- list side-by-side -->
+			<table>
+				<tr>
+					<td>
+						<img src="./images/sample_rate_1.png" alt="sample_rate_1", width="400">
+						<figcaption align="middle">Sample Rate 1</figcaption>
+					</td>
+					<td>
+						<img src="./images/sample_rate_4.png" alt="sample_rate_4", width="400">
+						<figcaption align="middle">Sample Rate 4</figcaption>
+					</td>
+					<td>
+						<img src="./images/sample_rate_16.png" alt="sample_rate_16", width="400">
+						<figcaption align="middle">Sample Rate 16</figcaption>
+					</td>
+				</tr>
+			</table>
+
+				The higher the sample rate, the smoother the edges of the triangle. This is because the higher the sample rate, the more samples we have in the sample buffer, and the more close it is to the real color of the pixel.
+		</ul>
+
+	<h1 align="middle">Task 3: Transforms</h1>
+		<ul>
+			<li><h3>Updated Version of robot.svg</h3></li>
+				<img align="middle" src="./images/my_robot.png" alt="my_robot">
+				<figcaption align="middle">The robot is crawling on the ground.</figcaption>
+		</ul>
+
+	<h1 align="middle">Task 4: Barycentric Coordinates</h1>
+		<ul>
+			<li><h3>Explanation of Barycentric Coordinates</h3></li>
+				<ol>
+					<li>
+						Barycentric coordinates are a coordinate system used to represent a point in a triangle. It is a set of three numbers that sum up to 1, and each number represents the weight of the corresponding vertex.
+					</li>
+					<img src="./images/Interpolate_triangle.png" alt="barycentric_coordinates" width="400">
+				</ol>
+				<img align="middle" src="./images/basic_test7.png" alt="basic_test7">
+				<figcaption align="middle">basic test7.</figcaption>
+		</ul>
+
+	<h1 align="middle">Task 5: "Pixel sampling" for texture mapping</h1>
+		<ul>
+			<li><h3>Pixel Sampling</h3></li>
+				<ol>
+					<li>
+						Pixel sampling is to use barycentric coordinates of the pixel in the triangle, to sample the color of the pixel in the texture.
+					</li>
+					<li>
+						Nearest sampling is just simply find the nearest pixel in the texture.
+						<br>
+						Bilinear sampling is to find the four nearest pixels in the texture, and interpolate the color of these four pixels. 
+				</ol>
+			<li><h3>Comparison of Four Versions of the Image</h3></li>
+				<table>
+					<tr>
+						<td>
+							<img src="./images/nearest_1.png" alt="nearest_1", width="400">
+							<figcaption align="middle">Nearest and 1 sample per pixel</figcaption>
+						</td>
+						<td>
+							<img src="./images/nearest_16.png" alt="nearest_16", width="400">
+							<figcaption align="middle">Nearest and 16 samples per pixel</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="./images/bilinear_1.png" alt="linear_1", width="400">
+							<figcaption align="middle">Linear and 1 sample per pixel</figcaption>
+						</td>
+						<td>
+							<img src="./images/bilinear_16.png" alt="linear_16", width="400">
+							<figcaption align="middle">Linear and 16 samples per pixel</figcaption>
+						</td>
+					</tr>
+				</table>
+			<p>
+				Bilinear is much better than nearest when the sample rate is low. But when the sample rate is high, the difference between the two methods is not that significant.
+			</p>
+		</ul>
+
+
+
+	
+
+	<h1 align="middle">Task 6: Level Sampling</h1>
+		<ul>
+			<li><h3>Level Sampling</h3></li>
+				<ol>
+					<li>
+						Level sampling is to pre-generate the mipmap of different levels of the texture. And when we are sampling the texture, we can choose the level of the texture to sample from base on the distance between the texture and the camera.
+					</li>
+					<li>
+						We implemented the get_level function according to the formula in the lecture slides.
+						<img src="./images/formula.png" alt="level_sampling_formula" width="400">
+					</li>
+				</ol>
+			<li><h3>Tradeoffs between Speed, Memory Usage, and Antialiasing Power</h3></li>
+				<ol>
+					<li>pixel sampling:</li>
+						<ul>
+							<li>Speed: Fastest</li>
+							<li>Memory Usage: Low</li>
+							<li>Antialiasing Power: Low</li>
+						</ul>
+					<li>level sampling:</li>
+						<ul>
+							<li>Speed: Medium</li>
+							<li>Memory Usage: Medium</li>
+							<li>Antialiasing Power: Medium</li>
+						</ul>
+					<li>number of samples per pixel:</li>
+						<ul>
+							<li>Speed: Slowest</li>
+							<li>Memory Usage: High</li>
+							<li>Antialiasing Power: High</li>
+						</ul>
+				</ol>
+			<li><h3>Four Versions of the Image</h3></li>
+				<table>
+					<tr>
+						<td>
+							<img src="./images/L-zero_P-nearest.png" alt="L-zero_P-nearest", width="400">
+							<figcaption align="middle">L_ZERO and P_NEAREST</figcaption>
+						</td>
+						<td>
+							<img src="./images/L-zero_P-linear.png" alt="L-zero_P-linear", width="400">
+							<figcaption align="middle">L_ZERO and P_LINEAR</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="./images/L-nearest_P-nearest.png" alt="L-nearest_P-nearest", width="400">
+							<figcaption align="middle">L_NEAREST and P_NEAREST</figcaption>
+						</td>
+						<td>
+							<img src="./images/L-nearest_P-linear.png" alt="L-nearest_P-linear", width="400">
+							<figcaption align="middle">L_NEAREST and P_LINEAR</figcaption>
+						</td>
+					</tr>
+				</table>
+		</ul>
+		
+		
+
+</body>
+
+
+<!-- 
+Task 1 (20 pts)
+Walk through how you rasterize triangles in your own words.
+Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle.
+Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.
+Extra credit: Explain any special optimizations you did beyond simple bounding box triangle rasterization, with a timing comparison table (we suggest using the c++ clock() function around the svg.draw() command in DrawRend::redraw() to compare millisecond timings with your various optimizations off and on).
+Task 2 (20 pts)
+Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.
+Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.
+Extra credit: If you implemented alternative antialiasing methods, describe them and include comparison pictures demonstrating the difference between your method and grid-based supersampling.
+Task 3 (10 pts)
+Create an updated version of svg/transforms/robot.svg with cubeman doing something more interesting, like waving or running. Feel free to change his colors or proportions to suit your creativity. Save your svg file as my_robot.svg in your docs/ directory and show a png screenshot of your rendered drawing in your write-up. Explain what you were trying to do with cubeman in words.
+Task 4 (10 pts)
+Explain barycentric coordinates in your own words and use an image to aid you in your explanation. One idea is to use a svg file that plots a single triangle with one red, one green, and one blue vertex, which should produce a smoothly blended color triangle.
+Show a png screenshot of svg/basic/test7.svg with default viewing parameters and sample rate 1. If you make any additional images with color gradients, include them.
+Task 5 (15 pts)
+Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. Briefly discuss the two different pixel sampling methods, nearest and bilinear.
+Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.
+Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.
+Task 6 (25 pts)
+Explain level sampling in your own words and describe how you implemented it for texture mapping.
+You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.
+Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR.
+To use your own png, make a copy of one of the existing svg files in svg/texmap/ (or create your own modelled after one of the provided svg files). Then, near the top of the file, change the texture filename to point to your own png. From there, you can run ./draw and pass in that svg file to render it and then save a screenshot of your results.
+Note: Choose a png that showcases the different sampling effects well. You may also want to zoom in/out, use the pixel inspector, etc. to demonstrate the differences.
+Extra credit: If you implemented any extra filtering methods, describe them and show comparisons between your results with the other above methods. -->
