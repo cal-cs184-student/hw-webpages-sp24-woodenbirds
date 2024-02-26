@@ -132,7 +132,13 @@
   Briefly explain how de Casteljau algorithm extends to Bezier surfaces and how you implemented it in order to evaluate Bezier surfaces.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <!-- number list -->
+  <ol>
+    <li align="left">The de Casteljau algorithm first iterate all the rows.</li>
+    <li align="left">For each row, we use the 2D de Casteljau algorithm to evaluate the row final points.</li>
+    <li align="left">We apply the 2D de Casteljau algorithm to the all row final points obtained from lase step to get the final point.</li>
+  </ol>
+    
 </p>
 <br>
 
@@ -141,7 +147,9 @@
   Show a screenshot of bez/teapot.bez (not .dae) evaluated by your implementation.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    <div align="middle">
+    <img src="images/teapot.png" align="middle" width="50%">
+  </div>
 </p>
 <br>
 
