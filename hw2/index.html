@@ -162,7 +162,12 @@
   Briefly explain how you implemented the area-weighted vertex normals.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <ol>
+    <li align="left">Looping around vertex using halfedge=halfedge->twin()->next(), get the face by halfedge->face().</li>
+    <li align="left">Intialize the normal_sum vector to (0, 0, 0).</li>
+    <li align="left">For each face, add the normal vector of the face, which is face->normal(), to the normal_sum vector.</li>
+    <li align="left">Using vector.unit() to normalize the normal_sum vector.</li>
+  </ol>
 </p>
 <br>
 
@@ -171,7 +176,18 @@
   Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <tr align="center">
+    <td>
+      <img src="images/with_normal.png" align="middle" width="400px"/>
+      <figcaption>With vertex normals</figcaption>
+    </td>
+    <br>
+    <br>
+    <td>
+      <img src="images/without_normal.png" align="middle" width="400px"/>
+      <figcaption>Without vertex normals</figcaption>
+    </td>
+  </tr>
 </p>
 <br>
 
@@ -181,7 +197,13 @@
   Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    <ol>
+      <li align="left">If the edge is a boundary edge, return.</li>
+      <li align="left">Name each edge using the example order.</li>
+      <li align="left">Get the six halfedges(ab,bd,dc,ca,cb,bc), the four vertexes and the two faces(abc_bda,dcb_cad) .</li>
+      <li align="left">Reassign the halfedges of the vertexes and the faces to their corresponding root.</li>
+      <li align="left">Reassign next, vertex and face of the six halfedges.</li>
+    </ol>
 </p>
 <br>
 
@@ -190,7 +212,18 @@
   Show screenshots of the teapot before and after some edge flips.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <tr align="center">
+    <td>
+      <img src="images/flipped.png" align="middle" width="400px"/>
+      <figcaption>After flipping</figcaption>
+    </td>
+    <br>
+    <br>
+    <td>
+      <img src="images/before_flipped.png" align="middle" width="400px"/>
+      <figcaption>Before flipping</figcaption>
+    </td>
+  </tr>
 </p>
 <br>
 
@@ -199,7 +232,7 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    None.
 </p>
 <br>
 
