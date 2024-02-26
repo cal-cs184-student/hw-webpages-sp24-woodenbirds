@@ -318,7 +318,13 @@
   Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <ol>
+    <li align="left">For each old vertex, we calculate the new position according to new_position = (1 - n * u) * original_position + u * original_neighbor_position_sum and store it in the vertex->new_position.</li>
+    <li align="left">For each edge, we calculate the position of the new vertex according to 3/8 * (A + B) + 1/8 * (C + D) and store it in edge->new_position.</li>
+    <li align="left">For each edge, we split it and tag the splited edge as isNew. Meanwhile, we add the totaly newly created edges to the flip_edges list.</li>
+    <li align="left">Iterate through the flip_edges list, check whether it has one old vertex and one new vertex. If so, we flip it.</li>
+    <li align="left">For each old vertex, we assign the new_position to the position.</li>
+  </ol>
 </p>
 <br>
 
@@ -327,8 +333,54 @@
   Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    Meshes become smoother. The sharp corners and edges become smoother as well.
 </p>
+<table align="center">
+  <tr align="center">
+    <td>
+      <img src="images/cube0.png" align="middle" width="400px"/>
+      <figcaption>original</figcaption>
+    </td>
+    <br>
+    <br>
+    <td>
+      <img src="images/cube1.png" align="middle" width="400px"/>
+      <figcaption>One loop subdivision</figcaption>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="images/cube2.png" align="middle" width="400px"/>
+      <figcaption>Two loop subdivision</figcaption>
+    </td>
+    <td>
+      <img src="images/cube3.png" align="middle" width="400px"/>
+      <figcaption>Three loop subdivision</figcaption>
+    </td>
+  </tr>
+</table>
+  We can reduce the effect by pre-splitting some edges so that the meshes are smaller near the corner.
+  <table>
+    <tr align="center">
+      <td>
+        <img src="images/cube_reduce0.png" align="middle" width="400px"/>
+        <figcaption>original</figcaption>
+      </td>
+      <td>
+        <img src="images/cube_reduce1.png" align="middle" width="400px"/>
+        <figcaption>One loop subdivision with pre-splitting</figcaption>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="images/cube_reduce2.png" align="middle" width="400px"/>
+        <figcaption>Two loop subdivision with pre-splitting</figcaption>
+      </td>
+      <td>
+        <img src="images/cube_reduce3.png" align="middle" width="400px"/>
+        <figcaption>Three loop subdivision with pre-splitting</figcaption>
+      </td>
+  </table>
 <br>
 
 
@@ -336,8 +388,10 @@
   Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    We can flip some edges of the cube so that the edges in the cube are symmetic. Therefore, the cube will subdivide symmetrically.<br>
+    This effect occurs because the original cube is not symmetric.
 </p>
+<img src="images/symmetric_cube.png" align="middle" width="400px"/>
 <br>
 
 
@@ -345,7 +399,7 @@
     If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    None.
 </p>
 <br>
 
