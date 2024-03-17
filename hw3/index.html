@@ -238,22 +238,22 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
     <tr align="center">
       <td>
         <img src="images/bunny_hemisphere.png" align="middle" width="400px"/>
-        <figcaption>example1.dae</figcaption>
+        <figcaption>CBbunny.dae</figcaption>
       </td>
       <td>
         <img src="images/sphere_hemisphere.png" align="middle" width="400px"/>
-        <figcaption>example1.dae</figcaption>
+        <figcaption>CBSphere.dae</figcaption>
       </td>
     </tr>
     <br>
     <tr align="center">
       <td>
         <img src="images/bunny_importance.png" align="middle" width="400px"/>
-        <figcaption>example2.dae</figcaption>
+        <figcaption>CBbunny.dae</figcaption>
       </td>
       <td>
         <img src="images/sphere_importance.png" align="middle" width="400px"/>
-        <figcaption>example2.dae</figcaption>
+        <figcaption>CBSphere.dae</figcaption>
       </td>
     </tr>
     <br>
@@ -315,7 +315,14 @@ You will probably want to use the instructional machines for the above renders i
   Walk through your implementation of the indirect lighting function.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+  We add a argument(num_bounces) to the at_least_one_bounce_radiance function to control the number of bounces. <br>
+  If num_bounces is 0, we return L_out directly. <br>
+  If num_bounces is 1, we call the one_bounce_radiance function to get the direct illumination. <br>
+  If num_bounces is larger than 1, we first call the one_bounce_radiance function to get the direct illumination.<br>
+  Then, we sample the bsdf to get the wi and pdf.<br>
+  After that, we generate a ray with the hit point as the start point and the wi as the direction. <br>
+  If the ray intersects with any primitives in the scene, we calculate the direct illumination by call the at_least_one_bounce_radiance function recursively and add it to L_out. <br>
+  For Russian Roulette, we use a coin_flip function to decide whether to continue the recursion. <br>
 </p>
 <br>
 
@@ -327,12 +334,12 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example1.dae</figcaption>
+        <img src="images/global_CBbunny.png" align="middle" width="400px"/>
+        <figcaption>CBbunny.dae</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example2.dae</figcaption>
+        <img src="images/global_CBsphere.png" align="middle" width="400px"/>
+        <figcaption>CBSphere.dae</figcaption>
       </td>
     </tr>
   </table>
@@ -347,11 +354,11 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/global_CBbunny_direct.png" align="middle" width="400px"/>
         <figcaption>Only direct illumination (example1.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/global_CBbunny_indirect.png" align="middle" width="400px"/>
         <figcaption>Only indirect illumination (example1.dae)</figcaption>
       </td>
     </tr>
@@ -359,7 +366,8 @@ You will probably want to use the instructional machines for the above renders i
 </div>
 <br>
 <p>
-    YOUR EXPLANATION GOES HERE
+    The roof are completely black in the direct illumination image because the light can't reach the roof directly. However, the roof are illuminated in the indirect illumination image because the light can bounce to the roof.<br>
+    The back wall color is not completely grey in the indirect illumination image because the light can bounce to the multiple walls and the color of the back wall can be affected by the color of the other walls.<br>
 </p>
 <br>
 
@@ -371,27 +379,27 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/global_CBbunny_m_0.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 0 (CBbunny.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/global_CBbunny_m_1.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 1 (CBbunny.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/global_CBbunny_m_2.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 2 (CBbunny.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/global_CBbunny_m_3.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 3 (CBbunny.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/global_CBbunny_m_100.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 100 (CBbunny.dae)</figcaption>
       </td>
     </tr>
@@ -399,7 +407,12 @@ You will probably want to use the instructional machines for the above renders i
 </div>
 <br>
 <p>
-    YOUR EXPLANATION GOES HERE
+    The max_ray_depth = 0 image is completely black except the light itself because there's no light bounce. <br>
+    The max_ray_depth = 1 image is bright all the places where the light can directly reach and the light itself because there's one light bounce. <br>
+    The max_ray_depth = 2 image is also bright at the roof because the light can bounce to the roof. <br>
+
+    As the max_ray_depth increase, the image becomes brighter because the light can bounce more times and reach more places. <br>
+    However, the image doesn't change much after max_ray_depth = 3 because the energy of the light is very low after 3 bounces. <br>
 </p>
 <br>
 
@@ -411,45 +424,45 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>1 sample per pixel (example1.dae)</figcaption>
+        <img src="images/global_CBbunny_s_1.png" align="middle" width="400px"/>
+        <figcaption>1 sample per pixel (CBbunny.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>2 samples per pixel (example1.dae)</figcaption>
-      </td>
-    </tr>
-    <tr align="center">
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>4 samples per pixel (example1.dae)</figcaption>
-      </td>
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>8 samples per pixel (example1.dae)</figcaption>
+        <img src="images/global_CBbunny_s_2.png" align="middle" width="400px"/>
+        <figcaption>2 samples per pixel (CBbunny.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>16 samples per pixel (example1.dae)</figcaption>
+        <img src="images/global_CBbunny_s_4.png" align="middle" width="400px"/>
+        <figcaption>4 samples per pixel (CBbunny.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>64 samples per pixel (example1.dae)</figcaption>
+        <img src="images/global_CBbunny_s_8.png" align="middle" width="400px"/>
+        <figcaption>8 samples per pixel (CBbunny.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>1024 samples per pixel (example1.dae)</figcaption>
+        <img src="images/global_CBbunny_s_16.png" align="middle" width="400px"/>
+        <figcaption>16 samples per pixel (CBbunny.dae)</figcaption>
+      </td>
+      <td>
+        <img src="images/global_CBbunny_s_64.png" align="middle" width="400px"/>
+        <figcaption>64 samples per pixel (CBbunny.dae)</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+      <td>
+        <img src="images/global_CBbunny_s_1024.png" align="middle" width="400px"/>
+        <figcaption>1024 samples per pixel (CBbunny.dae)</figcaption>
       </td>
     </tr>
   </table>
 </div>
 <br>
 <p>
-    YOUR EXPLANATION GOES HERE
+    As the number of samples per pixel increase, the rendered picture becomes clearer and the noise level decrease because as we have more samples, the average illumination will be more accurate.
 </p>
 <br>
 
