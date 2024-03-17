@@ -97,7 +97,14 @@ Show images with normal shading for a few small .dae files. -->
   Walk through the ray generation and primitive intersection parts of the rendering pipeline.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+  <ol>
+      <li>Transform (x,y) to ((x-0.5) * tan(radians(hFov) / 2) * 2, (y-0.5) * tan(radians(vFov) / 2) * 2, -1).</li>
+      <li>Transform the vector to the world coordinate by c2w.</li>
+      <li>Create the ray(pos, vector).</li>
+      <li>Set min_t to nClip, max_t to fClip.</li>
+      <li>In function raytrace_pixel, loop ns_aa times to generate ns_aa rays from x,y.</li>
+      <li>Calculate the mean of est_radiance_global_illumination(r) ns_aa rays and update the pixel x,y.</li>
+  </ol>
 </p>
 <br>
 
@@ -105,7 +112,15 @@ Show images with normal shading for a few small .dae files. -->
   Explain the triangle intersection algorithm you implemented in your own words.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+  <ol>
+      <li>Create function to check if a point is inside a triangle by checking if the point is on the same side of the each edge.</li>
+      <li>Calculate the normal of the triangle by taking the cross product of two edges of the triangle.</li>
+      <li>Calculate the intersection point by taking the dot product of the normal and a vector from the origin of the ray to a vertex of the triangle, and dividing it by the dot product of the direction of the ray and the normal.</li>
+      <li>Check if the intersection point is inside range of the ray.</li>
+      <li>Check if the intersection point is inside the triangle by checking if it's inside the triangle.</li>
+      <li>If it is, then record the intersection point, normal((A1 / A) * n1 + (A2 / A) * n2 + (A3 / A) * n), and bsdf.</li>
+      <li>Return whether there's an intersection.</li>
+  </ol>
 </p>
 <br>
 
@@ -117,22 +132,12 @@ Show images with normal shading for a few small .dae files. -->
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/example1.png" align="middle" width="400px"/>
-        <figcaption>example1.dae</figcaption>
+        <img src="images/part1_CBempty.png" align="middle" width="400px"/>
+        <figcaption>CBempty.dae</figcaption>
       </td>
       <td>
-        <img src="images/example2.png" align="middle" width="400px"/>
-        <figcaption>example2.dae</figcaption>
-      </td>
-    </tr>
-    <tr align="center">
-      <td>
-        <img src="images/example3.png" align="middle" width="400px"/>
-        <figcaption>example3.dae</figcaption>
-      </td>
-      <td>
-        <img src="images/example4.png" align="middle" width="400px"/>
-        <figcaption>example4.dae</figcaption>
+        <img src="images/part1_CBspheres.png" align="middle" width="400px"/>
+        <figcaption>CBspheres.dae</figcaption>
       </td>
     </tr>
   </table>
