@@ -153,7 +153,8 @@
     </b></blockquote>
 
     <p>
-      TODO
+      There would be less deformation with a higher ks, which would make the cloth smoother.<br>
+      With a lower ks, the structure depends more on the constraint that the spring's length is at most 10% greater than its rest_length.
     </p>
 
 
@@ -164,7 +165,8 @@
     </b></blockquote>
 
     <p>
-      TODO
+      A lower density means a lighter cloth intuitively, where the cloth sags less.<br>
+      A higher density means a heavier cloth, where the cloth sags more.
     </p>
     
     
@@ -175,7 +177,8 @@
     </b></blockquote>
 
     <p>
-      TODO
+      A higher damping means the cloth falls more slowly, where the cloth would take more time to stablize.<br>
+      A higher damping means the cloth falls more quickly but with no friction, where the cloth would take infinite time to stablize.
     </p>
 
 
@@ -190,21 +193,49 @@
       <table style="width:100%">
         <tr align="center">
           <td>
-            <img src="images/t2-interesting-difference1.png" align="middle" width="400vw" />
+            <img src="images/part2_default.png" align="middle" width="400vw" />
             <figcaption>Default Parameters</figcaption>
           </td>
+        </tr>
+        <tr align="center">
           <td>
-            <img src="images/t2-interesting-difference2.png" align="middle" width="400vw" />
-            <figcaption>Default Parameters</figcaption>
+            <img src="images/part2_ks200000.png" align="middle" width="400vw" />
+            <figcaption>ks=200000<br>
+            It looks more smooth.</figcaption>
           </td>
           <td>
+            <img src="images/part2_ks50.png" align="middle" width="400vw" />
+            <figcaption>ks=50<br>
+            It looks less smooth with irregularity.</figcaption>
+          </td>
+        </tr>
+        <tr align="center">
+          <td>
+            <img src="images/part2_density05.png" align="middle" width="400vw" />
+            <figcaption>Density=0.5<br>
+            It looks lighter with less sag.</figcaption>
+          </td>
+          <td>
+            <img src="images/part2_density5000.png" align="middle" width="400vw" />
+            <figcaption>Density=5000<br>
+            It sags more.</figcaption>
+          </td>
+        </tr>
+        <tr align="center">
+          <td>
+            <img src="images/part2_damping0.png" align="middle" width="400vw" />
+            <figcaption>Damping=0.0%<br>
+            It can't reach a static state, and is swinging all the time.</figcaption>
+          </td>
+          <td>
+            <img src="images/part2_damping85.png" align="middle" width="400vw" />
+            <figcaption>Damping=0.85%<br>
+            No obvious difference with default parameters in a static state. But it takes more time to stablize because it falls slowly.</figcaption>
+          </td>
         </tr>
       </table>
     </div>
   
-    <p>
-      TODO
-    </p>
 
 
     <blockquote><b>
@@ -213,7 +244,8 @@
     </b></blockquote>
 
     <div align="middle">
-      <img src="images/t2-shaded-cloth-resting-p4.png" align="middle" width="100%" />
+      <img src="images/part2_pinned4.png" align="middle" width="100%" />
+      <figcaption>Pinned4 with default parameters</figcaption>
     </div>
 
 
