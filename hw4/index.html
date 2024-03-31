@@ -284,7 +284,7 @@
     </b></blockquote>
 
     <p>
-      As the spring constant $\text{ks}$ increases, the cloth becomes more rigid and more difficult to deform by the gravity and the sphere.
+      As the spring constant ks increases, the cloth becomes more rigid and more difficult to deform by the gravity and the sphere.
     </p>
 
 
@@ -295,7 +295,7 @@
     </b></blockquote>
 
     <div align="middle">
-      <img src="images/t3-shaded-cloth-at-rest.png" align="middle" width="100%" />
+      <img src="images/part3_plane.png" align="middle" width="100%" />
     </div>
 
 
@@ -365,7 +365,7 @@
 
     <p>
       With smaller density, the cloth is lighter and is affected less by the gravity. Thus, it has less deformation.
-      With smaller spring constant $\text{ks}$, the cloth is more flexible and easier to deform.
+      With smaller spring constant ks, the cloth is more flexible and easier to deform.
     </p>
 
 
@@ -379,8 +379,9 @@
     </b></blockquote>
 
     <p>
-      TODO
-    </p>
+      A shader program is a program that render the color of each pixel on the screen.
+      Vertex shaders are used to calculate the final position and normal vectors of each vertex.
+      Fragment shaders are used to calculate the color of each vertex based on the output of the vertex shader.
 
 
     <blockquote><b>
@@ -396,22 +397,22 @@
       <table style="width:100%">
         <tr align="center">
           <td>
-              <img src="images/t5-blinn-phong-ambient.png" align="middle" width="400px" />
+              <img src="images/part5_phong_ambient.png" align="middle" width="400px" />
               <figcaption>Ambient component only</figcaption>
               
           </td>
           <td>
-              <img src="images/t5-blinn-phong-diffuse.png" align="middle" width="400px" />
+              <img src="images/part5_phong_diffuse.png" align="middle" width="400px" />
               <figcaption>Diffuse component only</figcaption>
           </td>
         </tr>
         <tr align="center">
           <td>
-              <img src="images/t5-blinn-phong-specular.png" align="middle" width="400px" />
+              <img src="images/part5_phong_specular.png" align="middle" width="400px" />
               <figcaption>Specular component only</figcaption>
           </td>
           <td>
-              <img src="images/t5-blinn-phong-all.png" align="middle" width="400px" />
+              <img src="images/part5_phong_complete.png" align="middle" width="400px" />
               <figcaption>Complete Blinn-Phong model</figcaption>
           </td>
         </tr>
@@ -424,7 +425,7 @@
     </b></blockquote>
 
     <div align="middle">
-      <img src="images/t5-custom-texture.png" align="middle" width="100%" />
+      <img src="images/part5_texture.png" align="middle" width="100%" />
     </div>
 
 
@@ -442,22 +443,22 @@
       <table style="width:100%">
         <tr align="center">
           <td>
-            <img src="images/t5-bump-mapping-cloth.png" align="middle" width="400vw" />
+            <img src="images/part5_bump.png" align="middle" width="400vw" />
             <figcaption>Bump Mapping on the Cloth</figcaption>
           </td>
           <td>
-            <img src="images/t5-bump-mapping-sphere.png" align="middle" width="400vw" />
+            <img src="images/part5_bump_sphere.png" align="middle" width="400vw" />
             <figcaption>Bump Mapping on the Sphere</figcaption>
           </td>
           <td>
         </tr>
         <tr align="center">
           <td>
-            <img src="images/t5-displacement-mapping-sphere.png" align="middle" width="400vw" />
+            <img src="images/part5_displacement_cloth.png" align="middle" width="400vw" />
             <figcaption>Displacement Mapping on the Sphere</figcaption>
           </td>
           <td>
-            <img src="images/t5-displacement-mapping-sphere-2.png" align="middle" width="400vw" />
+            <img src="images/part5_displacement_sphere.png" align="middle" width="400vw" />
             <figcaption>Displacement Mapping on the Sphere (coarser mesh)</figcaption>
           </td>
           <td>
@@ -478,11 +479,11 @@
       <table style="width:100%">
         <tr align="center">
           <td>
-            <img src="images/t5-mirror-shader-cloth.png" align="middle" width="400vw" />
+            <img src="images/part5_mirror_cloth.png" align="middle" width="400vw" />
             <figcaption>Mirror Shader on the Cloth</figcaption>
           </td>
           <td>
-            <img src="images/t5-mirror-shader-sphere.png" align="middle" width="400vw" />
+            <img src="images/part5_mirror_sphere.png" align="middle" width="400vw" />
             <figcaption>Mirror Shader on the Sphere</figcaption>
           </td>
           <td>
@@ -496,18 +497,30 @@
     </b></blockquote>
 
     <p>
-      TODO
+      I implemented a time uniform in the fragment shader so that I can change the color of the cloth based on the time.<br>
+      I linearly interpolate the color of each texture based on the time.
+      The result looks like the following:
+      <div>
+        <table style="width:100%">
+          <tr align="center">
+            <td>
+              <img src="images/part5_custom.gif" align="middle" width="400vw" />
+              <figcaption>Custom Shader</figcaption>
+            </td>
+          </tr>
+        </table>
+      </div>
     </p>
 
 
 
   <h2 align="middle">Contributions</h2>
   <p>
-    Partner A worked on TODO.
+    Partner A Yunqi Li worked on Part1, Part2.
   </p>
   <br />
   <p>
-    Partner B worked on TODO.
+    Partner B Yu Zhang worked on Part3, Part4, Part 5, custom-shader extra credit.
   </p>
 
 
