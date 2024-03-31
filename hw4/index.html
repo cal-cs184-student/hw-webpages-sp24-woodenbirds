@@ -390,7 +390,10 @@
     </b></blockquote>
 
     <p>
-      TODO
+      The Blinn-Phong shading model can calculate the color of each pixel using the ambient, diffuse, and specular components.<br>
+      The ambient lightings are the lightings from the environment and are the same for all pixels.<br>
+      The diffuse lightings are the lightings reflected by the surface and are the same for all reflection directions.<br>
+      The specular lightings are the lightings reflected by the surface and are stronger for the mirror reflection direction.<br>
     </p>
 
     <div align="middle">
@@ -454,11 +457,11 @@
         </tr>
         <tr align="center">
           <td>
-            <img src="images/part5_displacement_cloth.png" align="middle" width="400vw" />
+            <img src="images/part5_displacement_sphere_128.png" align="middle" width="400vw" />
             <figcaption>Displacement Mapping on the Sphere</figcaption>
           </td>
           <td>
-            <img src="images/part5_displacement_sphere.png" align="middle" width="400vw" />
+            <img src="images/part5_displacement_sphere_16.png" align="middle" width="400vw" />
             <figcaption>Displacement Mapping on the Sphere (coarser mesh)</figcaption>
           </td>
           <td>
@@ -467,7 +470,9 @@
     </div>
 
     <p>
-      TODO
+      The displacement mapping would also change the vertex position based on the texture, while the bump mapping only changes the normal vector of the vertex.<br>
+      As a result, the displacement mapping looks more realistic than the bump mapping.<br>
+      As the mesh becomes coarser, the displacement mapping shows less detail and has less changes in the vertex position, which is less up and down in the edge of the sphere.
     </p>
 
 
